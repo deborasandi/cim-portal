@@ -1,0 +1,420 @@
+/*
+ * Page-specific styles.
+ * Rails: app/assets/stylesheets/pages.css (or split per controller)
+ */
+
+/* ---------- Toast ---------- */
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  transform: translate(-50%, 20px);
+  background: var(--text);
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: var(--radius);
+  font-size: 14px;
+  box-shadow: var(--shadow);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s, transform 0.2s;
+  z-index: 100;
+  max-width: calc(100% - 32px);
+}
+
+.toast.is-visible {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+/* ---------- Demo login shortcuts (prototype only) ---------- */
+.demo-login {
+  margin-top: 28px;
+  padding: 16px;
+  border: 1px dashed var(--border-strong);
+  border-radius: var(--radius);
+  background: var(--surface-alt);
+}
+
+.demo-login p {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+
+.demo-login__buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+/* ---------- Estimate form (new order) ---------- */
+.estimate-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  gap: 20px;
+  align-items: start;
+}
+
+.estimate-layout > * {
+  min-width: 0;
+}
+
+.estimate-summary {
+  position: sticky;
+  top: 20px;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+  font-size: 14px;
+}
+
+.summary-row--total {
+  border-top: 1px solid var(--border);
+  margin-top: 8px;
+  padding-top: 12px;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.line-items .input,
+.line-items .select {
+  min-width: 0;
+  min-height: 36px;
+  padding: 7px 10px;
+  font-size: 13px;
+}
+
+.line-items td {
+  padding: 10px 8px;
+  vertical-align: top;
+}
+
+.line-items th {
+  padding: 10px 8px;
+}
+
+.line-items td:first-child,
+.line-items th:first-child {
+  padding-left: 16px;
+}
+
+.line-items { min-width: 800px; }
+.line-items .col-qty .input { min-width: 64px; }
+.line-items .col-price .input { min-width: 90px; }
+.line-items .col-n { width: 32px; color: var(--text-muted); padding-top: 18px; }
+.line-items .col-product { min-width: 260px; }
+.line-items .col-qty { width: 84px; }
+.line-items .col-price { width: 110px; }
+.line-items .col-date { width: 150px; }
+.line-items .col-amount { width: 110px; padding-top: 18px; }
+.line-items .col-remove { width: 44px; padding-top: 12px; }
+
+.line-items .line-desc {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 120px;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.line-items__footer {
+  padding: 12px 16px;
+  border-top: 1px solid var(--border);
+}
+
+.line-items__empty {
+  padding: 24px;
+  text-align: center;
+  color: var(--text-muted);
+}
+
+/* ---------- Product group ---------- */
+.group-layout {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(380px, 100%), 1fr));
+  gap: 20px;
+  align-items: start;
+}
+
+.group-layout > * {
+  min-width: 0;
+}
+
+.scroll-area {
+  max-height: 520px;
+  overflow-y: auto;
+}
+
+/* ---------- Prototype index ---------- */
+.screens {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+.screen-card {
+  display: block;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  color: var(--text);
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.screen-card:hover {
+  text-decoration: none;
+  border-color: var(--cim-blue);
+  box-shadow: var(--shadow);
+}
+
+.screen-card h3 {
+  margin-bottom: 6px;
+  color: var(--cim-blue);
+}
+
+.screen-card p {
+  margin: 0;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.screen-card .badge {
+  margin-bottom: 10px;
+}
+
+.section-title {
+  margin: 32px 0 14px;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+}
+
+/* ---------- Order details (customer + staff) ---------- */
+.detail-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  gap: 20px;
+  align-items: start;
+}
+
+.detail-layout > * {
+  min-width: 0;
+}
+
+.page-header__title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.page-header__title h1 {
+  margin: 0;
+}
+
+.page-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 16px 24px;
+  margin: 0;
+}
+
+.info-grid dt {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: 2px;
+}
+
+.info-grid dd {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 500;
+  overflow-wrap: anywhere;
+}
+
+.two-cols {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.two-cols h3 {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.two-cols p {
+  margin: 0;
+  font-size: 14px;
+}
+
+/* Progress steps */
+.steps {
+  list-style: none;
+  display: flex;
+  margin: 0 0 24px;
+  padding: 16px 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow-x: auto;
+}
+
+.steps__item {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 130px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.steps__item:not(:last-child)::after {
+  content: "";
+  flex: 1;
+  height: 2px;
+  margin: 0 12px;
+  background: var(--border);
+}
+
+.steps__dot {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  font-size: 13px;
+  font-weight: 700;
+  background: var(--surface-alt);
+  border: 2px solid var(--border);
+}
+
+.steps__item--done { color: var(--text); }
+.steps__item--done .steps__dot { background: var(--cim-blue); border-color: var(--cim-blue); color: #fff; }
+.steps__item--done::after { background: var(--cim-blue) !important; }
+.steps__item--current { color: var(--cim-blue); font-weight: 600; }
+.steps__item--current .steps__dot { background: var(--cim-yellow); border-color: var(--cim-yellow-dark); color: var(--text); }
+.steps__item--stopped { color: var(--danger); font-weight: 600; }
+.steps__item--stopped .steps__dot { background: var(--danger); border-color: var(--danger); color: #fff; }
+
+/* Timeline */
+.timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.timeline li {
+  position: relative;
+  padding: 0 0 16px 20px;
+  font-size: 14px;
+}
+
+.timeline li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 6px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--cim-blue);
+}
+
+.timeline li:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 17px;
+  bottom: 0;
+  width: 1px;
+  background: var(--border);
+}
+
+.timeline li:last-child {
+  padding-bottom: 0;
+}
+
+.timeline__text {
+  display: block;
+}
+
+.timeline__date {
+  display: block;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.file-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text);
+}
+
+.file-link:hover {
+  border-color: var(--cim-blue);
+  text-decoration: none;
+  background: var(--surface-tint);
+}
+
+.file-link svg {
+  width: 32px;
+  height: 32px;
+  color: var(--danger);
+  flex-shrink: 0;
+}
+
+.file-link span {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 960px) {
+  .estimate-layout,
+  .detail-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .estimate-summary {
+    position: static;
+  }
+
+}
+
+/* With the sidebar open, the order form needs the full width for the products table */
+@media (max-width: 1360px) {
+  .estimate-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .estimate-summary {
+    position: static;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 0 20px;
+  }
+}

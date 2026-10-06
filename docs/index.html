@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<!-- Prototype index (GitHub Pages entry point). Not part of the Rails app. -->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CIM Portal Prototype</title>
+  <link rel="icon" href="assets/images/cim-system-logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/stylesheets/base.css">
+  <link rel="stylesheet" href="assets/stylesheets/layout.css">
+  <link rel="stylesheet" href="assets/stylesheets/components.css">
+  <link rel="stylesheet" href="assets/stylesheets/pages.css">
+</head>
+<body>
+  <header class="app-header">
+    <div class="app-header__inner">
+      <a class="brand" href="index.html">
+        <img src="assets/images/cim-system-logo.png" alt="CIMsystem">
+        <span class="brand__name">CIM Portal</span>
+      </a>
+      <a class="btn btn--primary" href="sessions/new.html">Start the demo</a>
+    </div>
+  </header>
+
+  <main class="app-main">
+    <div class="page-header">
+      <div>
+        <h1>CIM Portal prototype</h1>
+        <p>Customers place orders online instead of sending purchase order PDFs by email. Orders become estimates in QuickBooks.</p>
+      </div>
+    </div>
+
+    <div class="alert alert--info">
+      <p>This is a clickable HTML prototype. Data is fictional and nothing is saved or sent to QuickBooks.</p>
+    </div>
+
+    <h2 class="section-title">Authentication</h2>
+    <div class="screens">
+      <a class="screen-card" href="sessions/new.html">
+        <span class="badge badge--info">Everyone</span>
+        <h3>Sign in</h3>
+        <p>One sign-in page for customers and staff. What each person sees depends on their role.</p>
+      </a>
+      <a class="screen-card" href="registrations/new.html">
+        <span class="badge badge--info">Everyone</span>
+        <h3>Create account</h3>
+        <p>Email and password only. Linking to the QuickBooks customer comes later.</p>
+      </a>
+      <a class="screen-card" href="passwords/new.html">
+        <span class="badge badge--info">Everyone</span>
+        <h3>Forgot password</h3>
+        <p>Request a reset link by email.</p>
+      </a>
+      <a class="screen-card" href="passwords/edit.html">
+        <span class="badge badge--info">Everyone</span>
+        <h3>New password</h3>
+        <p>Page opened from the reset link.</p>
+      </a>
+    </div>
+
+    <h2 class="section-title">Customer</h2>
+    <div class="screens">
+      <a class="screen-card" href="estimates/index.html">
+        <span class="badge badge--accepted">Customer</span>
+        <h3>My orders</h3>
+        <p>The customer's orders and their status in QuickBooks.</p>
+      </a>
+      <a class="screen-card" href="estimates/new.html">
+        <span class="badge badge--accepted">Customer</span>
+        <h3>New order</h3>
+        <p>Estimate fields, allowed products only, and a required PO PDF upload.</p>
+      </a>
+      <a class="screen-card" href="estimates/show.html?id=1057">
+        <span class="badge badge--accepted">Customer</span>
+        <h3>Order details</h3>
+        <p>View an order and its status. Edit or cancel it while it is pending review.</p>
+      </a>
+      <a class="screen-card" href="estimates/edit.html?id=1057">
+        <span class="badge badge--accepted">Customer</span>
+        <h3>Edit order</h3>
+        <p>Same form as a new order, prefilled. The PDF already sent stays attached.</p>
+      </a>
+    </div>
+
+    <h2 class="section-title">CIMsystem staff</h2>
+    <div class="screens">
+      <a class="screen-card" href="admin/customers/index.html">
+        <span class="badge badge--pending">Staff</span>
+        <h3>Customers</h3>
+        <p>All QuickBooks customers with search, quick filters and pagination.</p>
+      </a>
+      <a class="screen-card" href="admin/customers/show.html?id=58">
+        <span class="badge badge--pending">Staff</span>
+        <h3>Customer page</h3>
+        <p>Products the customer can order: product groups plus products added individually.</p>
+      </a>
+      <a class="screen-card" href="admin/product_groups/index.html">
+        <span class="badge badge--pending">Staff</span>
+        <h3>Product groups</h3>
+        <p>Sets of products assigned to many customers at once.</p>
+      </a>
+      <a class="screen-card" href="admin/product_groups/show.html?id=g1">
+        <span class="badge badge--pending">Staff</span>
+        <h3>Product group</h3>
+        <p>The group's products and the customers that have it.</p>
+      </a>
+    </div>
+  </main>
+
+  <footer class="app-footer">
+    <div class="app-footer__inner">
+      <span>© 2026 CIMsystem LLC</span>
+      <span>Prototype v0.1</span>
+    </div>
+  </footer>
+</body>
+</html>

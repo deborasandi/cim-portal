@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<!-- Rails: app/views/admin/customers/show.html.erb (staff only): products and orders of one customer -->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Customer · CIM Portal</title>
+  <link rel="icon" href="../../assets/images/cim-system-logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/stylesheets/base.css">
+  <link rel="stylesheet" href="../../assets/stylesheets/layout.css">
+  <link rel="stylesheet" href="../../assets/stylesheets/components.css">
+  <link rel="stylesheet" href="../../assets/stylesheets/pages.css">
+</head>
+<body>
+  <div class="app-shell" data-controller="sidebar">
+    <!-- Rails: layouts/_sidebar.html.erb (items depend on current_user.role) -->
+    <aside class="sidebar" id="sidebar" aria-label="Main menu">
+      <a class="sidebar__brand" href="../customers/index.html" title="CIM Portal">
+        <span class="sidebar__logo"><img src="../../assets/images/cim-system-logo.png" alt="CIMsystem"></span>
+        <span class="sidebar__name">CIM Portal</span>
+      </a>
+      <nav class="sidebar__nav">
+          <div class="sidebar__section">Customers</div>
+          <a class="sidebar__link is-active" href="../customers/index.html" title="Customers" aria-current="page">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            <span class="sidebar__label">Customers</span>
+          </a>
+          <a class="sidebar__link" href="../product_groups/index.html" title="Product groups">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 2 10 5-10 5L2 7z"/><path d="m2 17 10 5 10-5"/><path d="m2 12 10 5 10-5"/></svg>
+            <span class="sidebar__label">Product groups</span>
+          </a>
+      </nav>
+      <div class="sidebar__footer">
+        <a class="sidebar__link" href="../../sessions/new.html" title="Sign out">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/></svg>
+          <span class="sidebar__label">Sign out</span>
+        </a>
+      </div>
+    </aside>
+    <div class="sidebar-backdrop" data-sidebar-target="backdrop"></div>
+
+    <div class="app-body">
+      <div class="prototype-bar">Prototype: data is fictional and nothing is saved. <a href="../../index.html">All screens</a></div>
+
+      <!-- Rails: layouts/_topbar.html.erb -->
+      <header class="topbar">
+        <div class="topbar__left">
+          <button type="button" class="topbar__toggle" data-sidebar-target="toggle" aria-controls="sidebar" aria-expanded="true" aria-label="Toggle menu">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18"/></svg>
+          </button>
+          <div class="topbar__context"><strong>CIMsystem</strong> · Internal <span class="qb-tag" style="margin-left: 8px">QuickBooks connected</span></div>
+        </div>
+        <div class="user-menu">
+          <div class="user-menu__info">
+            <div class="user-menu__name">Mark Ellis</div>
+            <div class="user-menu__role">Staff</div>
+          </div>
+          <span class="avatar" aria-hidden="true">ME</span>
+        </div>
+      </header>
+
+      <main class="app-main" data-controller="customer-access tabs">
+        <div class="page-header">
+          <div>
+            <div class="breadcrumb"><a href="index.html">Customers</a> / <span data-customer-name></span></div>
+            <div class="page-header__title">
+              <h1 data-customer-name></h1>
+              <span class="qb-tag">From QuickBooks</span>
+            </div>
+          </div>
+        </div>
+
+        <section class="card">
+          <div class="card__body">
+            <dl class="info-grid" data-customer-access-target="info"></dl>
+          </div>
+        </section>
+
+        <div class="tabs" role="tablist" aria-label="Customer sections">
+          <button type="button" role="tab" id="tab-products" aria-controls="products">Products <span class="badge" data-products-badge></span></button>
+          <button type="button" role="tab" id="tab-orders" aria-controls="orders">Orders <span class="badge" data-orders-badge></span></button>
+        </div>
+
+        <!-- Products tab -->
+        <div id="products" role="tabpanel" aria-labelledby="tab-products">
+          <section class="card">
+            <div class="card__header">
+              <div>
+                <h2>Product groups</h2>
+                <p>The customer can order every product in these groups. Changing a group updates all its customers.</p>
+              </div>
+              <button type="button" class="btn btn--secondary btn--sm" data-customer-access-target="assignGroup">+ Assign group</button>
+            </div>
+            <div class="card__body">
+              <div class="chip-list" data-customer-access-target="groups"></div>
+            </div>
+          </section>
+
+          <section class="card">
+            <div class="card__header">
+              <div>
+                <h2>Products this customer can order</h2>
+                <p data-customer-access-target="productCount"></p>
+              </div>
+              <div class="page-actions">
+                <button type="button" class="btn btn--secondary btn--sm" data-customer-access-target="copyFrom">Copy from customer…</button>
+                <button type="button" class="btn btn--primary btn--sm" data-customer-access-target="addProducts">+ Add products</button>
+              </div>
+            </div>
+            <div class="card__body card__body--flush">
+              <div class="alert alert--warning" style="margin: 16px 20px 0" data-customer-access-target="noProducts" hidden>
+                <p><strong>This customer cannot place orders.</strong> Assign a group or add products.</p>
+              </div>
+              <div class="toolbar" style="padding: 12px 20px; border-bottom: 1px solid var(--border)">
+                <label class="search">
+                  <span class="sr-only">Search products</span>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+                  <input class="input" type="search" placeholder="Search by SKU, name or category" data-customer-access-target="productSearch">
+                </label>
+                <div class="toolbar" data-customer-access-target="bulk" hidden>
+                  <span class="text-small text-muted" data-customer-access-target="bulkCount"></span>
+                  <button type="button" class="btn btn--danger btn--sm" data-customer-access-target="bulkRemove">Remove selected</button>
+                </div>
+              </div>
+              <div class="table-wrap">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th style="width: 40px"><span class="sr-only">Select</span></th>
+                      <th>SKU</th>
+                      <th>Product</th>
+                      <th>Available through</th>
+                      <th class="num">Unit price</th>
+                      <th style="width: 90px"><span class="sr-only">Actions</span></th>
+                    </tr>
+                  </thead>
+                  <tbody data-customer-access-target="products"></tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <!-- Orders tab -->
+        <div id="orders" role="tabpanel" aria-labelledby="tab-orders" hidden>
+          <p class="text-small text-muted">Orders placed through the portal. Review, approve or reject them in QuickBooks (Estimates).</p>
+          <section class="card">
+            <div class="card__body card__body--flush">
+              <div class="table-wrap">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>PO number</th>
+                      <th>Order date</th>
+                      <th>Estimate #</th>
+                      <th>Status</th>
+                      <th class="num">Total</th>
+                    </tr>
+                  </thead>
+                  <tbody data-customer-access-target="orders"></tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+        </div>
+      </main>
+    
+      <footer class="app-footer">
+        <div class="app-footer__inner">
+          <span>© 2026 CIMsystem LLC · Internal</span>
+          <span>CIM Portal</span>
+        </div>
+      </footer>
+    </div>
+  </div>
+  <script src="../../assets/javascripts/data/mock_data.js"></script>
+  <script src="../../assets/javascripts/application.js"></script>
+  <script src="../../assets/javascripts/controllers/sidebar_controller.js"></script>
+  <script src="../../assets/javascripts/components/picker.js"></script>
+  <script src="../../assets/javascripts/controllers/tabs_controller.js"></script>
+  <script src="../../assets/javascripts/controllers/customer_access_controller.js"></script>
+</body>
+</html>

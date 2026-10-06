@@ -1,0 +1,22 @@
+# OS / editors
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+
+# Environment / secrets (QuickBooks credentials, etc.)
+.env
+.env.*
+!.env.example
+
+# Rails (next phase)
+/log/*
+/tmp/*
+/storage/*
+/public/assets
+/node_modules
+/config/master.key
+/config/credentials/*.key
+.byebug_history
+coverage/

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<!-- Rails: app/views/sessions/new.html.erb (layout: auth) -->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sign in · CIM Portal</title>
+  <link rel="icon" href="../assets/images/cim-system-logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/stylesheets/base.css">
+  <link rel="stylesheet" href="../assets/stylesheets/layout.css">
+  <link rel="stylesheet" href="../assets/stylesheets/components.css">
+  <link rel="stylesheet" href="../assets/stylesheets/pages.css">
+</head>
+<body>
+  <div class="auth">
+    <aside class="auth__aside">
+      <div class="auth__logo">
+        <img src="../assets/images/cim-system-logo.png" alt="CIMsystem">
+      </div>
+      <div>
+        <h2>Order from CIMsystem in a few clicks.</h2>
+        <p>The CIM Portal replaces purchase orders sent by email.</p>
+        <ul>
+          <li>Order only the products available to your account</li>
+          <li>Attach your Purchase Order PDF to every order</li>
+          <li>Track the status of your orders in one place</li>
+        </ul>
+      </div>
+      <small style="color: rgba(255,255,255,.7)">© 2026 CIMsystem LLC</small>
+    </aside>
+
+    <main class="auth__main">
+      <div class="auth__card">
+        <div class="auth__mobile-logo">
+          <img src="../assets/images/cim-system-logo.png" alt="CIMsystem">
+        </div>
+
+        <h1>Sign in</h1>
+        <p class="lead">Use the same account for customers and CIMsystem staff.</p>
+
+        <!-- Rails: form_with url: session_path -->
+        <form action="../estimates/index.html" method="get">
+          <div class="field">
+            <label for="email" class="required">Email</label>
+            <input class="input" type="email" id="email" name="email" autocomplete="username" placeholder="you@company.com" required>
+          </div>
+
+          <div class="field">
+            <label for="password" class="required">Password</label>
+            <input class="input" type="password" id="password" name="password" autocomplete="current-password" required>
+          </div>
+
+          <div class="form-inline-link">
+            <label class="checkbox">
+              <input type="checkbox" name="remember_me"> Remember me
+            </label>
+            <a href="../passwords/new.html">Forgot password?</a>
+          </div>
+
+          <button type="submit" class="btn btn--primary btn--block">Sign in</button>
+        </form>
+
+        <p class="auth__switch">
+          New to the CIM Portal? <a href="../registrations/new.html">Create an account</a>
+        </p>
+
+        <!-- Prototype only: remove in Rails -->
+        <div class="demo-login">
+          <p><strong>Prototype:</strong> sign in without credentials as…</p>
+          <div class="demo-login__buttons">
+            <a class="btn btn--secondary btn--sm" href="../estimates/index.html">Customer</a>
+            <a class="btn btn--secondary btn--sm" href="../admin/customers/index.html">CIMsystem staff</a>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

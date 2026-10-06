@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<!-- Rails: app/views/estimates/show.html.erb (customer sees only their own estimates) -->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Order · CIM Portal</title>
+  <link rel="icon" href="../assets/images/cim-system-logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/stylesheets/base.css">
+  <link rel="stylesheet" href="../assets/stylesheets/layout.css">
+  <link rel="stylesheet" href="../assets/stylesheets/components.css">
+  <link rel="stylesheet" href="../assets/stylesheets/pages.css">
+</head>
+<body>
+  <div class="app-shell" data-controller="sidebar">
+    <!-- Rails: layouts/_sidebar.html.erb (items depend on current_user.role) -->
+    <aside class="sidebar" id="sidebar" aria-label="Main menu">
+      <a class="sidebar__brand" href="index.html" title="CIM Portal">
+        <span class="sidebar__logo"><img src="../assets/images/cim-system-logo.png" alt="CIMsystem"></span>
+        <span class="sidebar__name">CIM Portal</span>
+      </a>
+      <nav class="sidebar__nav">
+          <div class="sidebar__section">Orders</div>
+          <a class="sidebar__link is-active" href="../estimates/index.html" title="My orders" aria-current="page">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 17h6"/></svg>
+            <span class="sidebar__label">My orders</span>
+          </a>
+      </nav>
+      <div class="sidebar__footer">
+        <a class="sidebar__link" href="../sessions/new.html" title="Sign out">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/></svg>
+          <span class="sidebar__label">Sign out</span>
+        </a>
+      </div>
+    </aside>
+    <div class="sidebar-backdrop" data-sidebar-target="backdrop"></div>
+
+    <div class="app-body">
+      <div class="prototype-bar">Prototype: data is fictional and nothing is saved. <a href="../index.html">All screens</a></div>
+
+      <!-- Rails: layouts/_topbar.html.erb -->
+      <header class="topbar">
+        <div class="topbar__left">
+          <button type="button" class="topbar__toggle" data-sidebar-target="toggle" aria-controls="sidebar" aria-expanded="true" aria-label="Toggle menu">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18"/></svg>
+          </button>
+          <div class="topbar__context"><strong>Summit Dental Group</strong></div>
+        </div>
+        <div class="user-menu">
+          <div class="user-menu__info">
+            <div class="user-menu__name">Jane Cooper</div>
+            <div class="user-menu__role">Customer</div>
+          </div>
+          <span class="avatar" aria-hidden="true">JC</span>
+        </div>
+      </header>
+
+      <main class="app-main" data-controller="estimate-show estimate-actions">
+        <div class="page-header">
+          <div>
+            <div class="breadcrumb"><a href="index.html">My orders</a> / <span data-field="po_number"></span></div>
+            <div class="page-header__title">
+              <h1>Order <span data-field="po_number"></span></h1>
+              <span data-field="status_label"></span>
+            </div>
+            <p>Estimate <span data-field="estimate_number"></span> · placed on <span data-field="txn_date"></span></p>
+          </div>
+          <!-- Rails: shown only while the order can still be changed (rules TBD) -->
+          <div class="page-actions" data-show-when="pending">
+            <a class="btn btn--secondary" href="#" data-edit-link>Edit order</a>
+            <button type="button" class="btn btn--danger" data-dialog-open="cancel-dialog">Cancel order</button>
+          </div>
+        </div>
+
+        <ol class="steps" data-estimate-show-target="steps" aria-label="Order progress"></ol>
+
+        <div class="alert alert--info" data-show-when="pending">
+          <p>CIMsystem is reviewing your order. You can still edit or cancel it until it is approved.</p>
+        </div>
+        <div class="alert alert--success" data-show-when="accepted">
+          <p><strong>Approved.</strong> CIMsystem approved this order. Contact your representative to make changes.</p>
+        </div>
+        <div class="alert alert--danger" data-show-when="rejected">
+          <p><strong>Rejected by CIMsystem:</strong> <span data-field="rejection_reason"></span></p>
+        </div>
+        <div class="alert alert--warning" data-show-when="cancelled">
+          <p><strong>You cancelled this order.</strong> Reason: <span data-field="cancellation_reason"></span></p>
+        </div>
+
+        <div class="detail-layout">
+          <div>
+            <section class="card">
+              <div class="card__header">
+                <h2>Order details</h2>
+              </div>
+              <div class="card__body">
+                <dl class="info-grid">
+                  <div><dt>PO number</dt><dd data-field="po_number"></dd></div>
+                  <div><dt>Revision</dt><dd data-field="revision"></dd></div>
+                  <div><dt>Order date</dt><dd data-field="txn_date"></dd></div>
+                  <div><dt>Payment terms</dt><dd data-field="sales_term"></dd></div>
+                  <div><dt>Buyer / contact</dt><dd data-field="contact_name"></dd></div>
+                  <div><dt>Email for the estimate</dt><dd data-field="bill_email"></dd></div>
+                </dl>
+              </div>
+            </section>
+
+            <section class="card">
+              <div class="card__header">
+                <h2>Shipping</h2>
+              </div>
+              <div class="card__body">
+                <div class="two-cols">
+                  <div>
+                    <h3>Ship to</h3>
+                    <p data-field="ship_to"></p>
+                  </div>
+                  <div>
+                    <h3>Ship via</h3>
+                    <p data-field="ship_method"></p>
+                    <h3 style="margin-top: 16px">FOB</h3>
+                    <p data-field="fob"></p>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <section class="card">
+              <div class="card__header">
+                <div>
+                  <h2>Products</h2>
+                  <p data-field="line_count"></p>
+                </div>
+              </div>
+              <div class="card__body card__body--flush">
+                <div class="table-wrap">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th style="width: 32px">#</th>
+                        <th>Product</th>
+                        <th>Due date</th>
+                        <th class="num">Qty</th>
+                        <th class="num">Unit price</th>
+                        <th class="num">Amount</th>
+                      </tr>
+                    </thead>
+                    <tbody data-estimate-show-target="lines"></tbody>
+                  </table>
+                </div>
+              </div>
+            </section>
+
+            <section class="card">
+              <div class="card__header">
+                <h2>Message to CIMsystem</h2>
+              </div>
+              <div class="card__body">
+                <p style="margin: 0" data-field="memo"></p>
+              </div>
+            </section>
+          </div>
+
+          <aside>
+            <section class="card">
+              <div class="card__header">
+                <h2>Summary</h2>
+              </div>
+              <div class="card__body">
+                <div class="summary-row"><span>Subtotal</span><span data-field="subtotal"></span></div>
+                <div class="summary-row"><span>Tax</span><span class="text-muted">Calculated by CIMsystem</span></div>
+                <div class="summary-row"><span>Shipping</span><span class="text-muted">Calculated by CIMsystem</span></div>
+                <div class="summary-row summary-row--total"><span>Total (USD)</span><span data-field="total"></span></div>
+              </div>
+            </section>
+
+            <section class="card">
+              <div class="card__header">
+                <h2>Purchase order PDF</h2>
+              </div>
+              <div class="card__body">
+                <a class="file-link" href="#" target="_blank" rel="noopener" data-pdf-link>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/></svg>
+                  <span><strong data-field="pdf_name"></strong><br><small>Open in a new tab</small></span>
+                </a>
+              </div>
+            </section>
+
+            <section class="card">
+              <div class="card__header">
+                <h2>Activity</h2>
+              </div>
+              <div class="card__body">
+                <ol class="timeline" data-estimate-show-target="history"></ol>
+              </div>
+            </section>
+          </aside>
+        </div>
+
+        <!-- Cancel confirmation. Rails: form_with url: cancel_estimate_path(@estimate), method: :patch -->
+        <dialog class="dialog" id="cancel-dialog" aria-labelledby="cancel-title"
+                data-new-status="cancelled" data-history="Cancelled by Jane Cooper"
+                data-toast="Order cancelled." data-reason-field="cancellationReason">
+          <form method="dialog">
+            <div class="dialog__body">
+              <h2 id="cancel-title">Cancel this order?</h2>
+              <p>CIMsystem will be notified and the estimate will not be processed. This cannot be undone.</p>
+              <div class="field" style="margin-bottom: 0">
+                <label for="cancel_reason">Reason (optional)</label>
+                <textarea class="textarea" id="cancel_reason" name="reason" placeholder="e.g. Sent the PO by mistake"></textarea>
+              </div>
+            </div>
+            <div class="dialog__actions">
+              <button type="button" class="btn btn--secondary" data-dialog-close>Keep order</button>
+              <button type="submit" class="btn btn--danger-solid">Cancel order</button>
+            </div>
+          </form>
+        </dialog>
+      </main>
+    
+      <footer class="app-footer">
+        <div class="app-footer__inner">
+          <span>© 2026 CIMsystem LLC · 8912 Stone Green Way, Louisville, KY 40220</span>
+          <span>Questions? Contact your CIMsystem representative.</span>
+        </div>
+      </footer>
+    </div>
+  </div>
+
+  <script src="../assets/javascripts/data/mock_data.js"></script>
+  <script src="../assets/javascripts/application.js"></script>
+  <script src="../assets/javascripts/controllers/sidebar_controller.js"></script>
+  <script src="../assets/javascripts/controllers/estimate_show_controller.js"></script>
+  <script src="../assets/javascripts/controllers/estimate_actions_controller.js"></script>
+</body>
+</html>

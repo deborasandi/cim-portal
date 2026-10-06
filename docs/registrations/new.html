@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<!-- Rails: app/views/registrations/new.html.erb (layout: auth) -->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Create account · CIM Portal</title>
+  <link rel="icon" href="../assets/images/cim-system-logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/stylesheets/base.css">
+  <link rel="stylesheet" href="../assets/stylesheets/layout.css">
+  <link rel="stylesheet" href="../assets/stylesheets/components.css">
+  <link rel="stylesheet" href="../assets/stylesheets/pages.css">
+</head>
+<body>
+  <div class="auth">
+    <aside class="auth__aside">
+      <div class="auth__logo">
+        <img src="../assets/images/cim-system-logo.png" alt="CIMsystem">
+      </div>
+      <div>
+        <h2>Create your CIM Portal account.</h2>
+        <p>After signing up, you will link your account to your customer record at CIMsystem so you can place orders.</p>
+        <ul>
+          <li>Sign up with your email and a password</li>
+          <li>Link your account to your company</li>
+          <li>Start ordering the products available to you</li>
+        </ul>
+      </div>
+      <small style="color: rgba(255,255,255,.7)">© 2026 CIMsystem LLC</small>
+    </aside>
+
+    <main class="auth__main">
+      <div class="auth__card">
+        <div class="auth__mobile-logo">
+          <img src="../assets/images/cim-system-logo.png" alt="CIMsystem">
+        </div>
+
+        <h1>Create account</h1>
+        <p class="lead">It only takes a minute.</p>
+
+        <!-- Rails: form_with model: @user, url: registration_path -->
+        <form action="../sessions/new.html" method="get">
+          <div class="field">
+            <label for="email" class="required">Email</label>
+            <input class="input" type="email" id="email" name="user[email]" autocomplete="username" placeholder="you@company.com" required>
+          </div>
+
+          <div class="field">
+            <label for="password" class="required">Password</label>
+            <input class="input" type="password" id="password" name="user[password]" autocomplete="new-password" minlength="8" required>
+            <span class="hint">At least 8 characters.</span>
+          </div>
+
+          <div class="field">
+            <label for="password_confirmation" class="required">Confirm password</label>
+            <input class="input" type="password" id="password_confirmation" name="user[password_confirmation]" autocomplete="new-password" minlength="8" required>
+          </div>
+
+          <button type="submit" class="btn btn--primary btn--block">Create account</button>
+        </form>
+
+        <p class="auth__switch">
+          Already have an account? <a href="../sessions/new.html">Sign in</a>
+        </p>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

@@ -1,0 +1,576 @@
+/*
+ * Layout: application shell (sidebar, topbar, main, footer) and auth shell.
+ * Rails: app/views/layouts/application.html.erb (+ _sidebar, _topbar partials)
+ * and layouts/auth.html.erb
+ */
+
+/* ---------- Prototype banner (remove in Rails) ---------- */
+.prototype-bar {
+  background: var(--cim-yellow);
+  color: var(--text);
+  font-size: 13px;
+  padding: 6px 16px;
+  text-align: center;
+}
+
+.prototype-bar a {
+  color: var(--text);
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+/* ---------- Simple header (prototype index only) ---------- */
+.app-header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+
+.app-header__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 10px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: var(--text);
+}
+
+.brand:hover {
+  text-decoration: none;
+}
+
+.brand img {
+  height: 48px;
+  width: auto;
+}
+
+.brand__name {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--cim-blue);
+  padding-left: 14px;
+  border-left: 1px solid var(--border);
+}
+
+/* ---------- App shell ---------- */
+.app-shell {
+  --sidebar-width: 248px;
+  --sidebar-collapsed: 72px;
+  display: grid;
+  grid-template-columns: var(--sidebar-width) minmax(0, 1fr);
+  min-height: 100vh;
+  transition: grid-template-columns 0.2s ease;
+}
+
+.app-shell.is-collapsed {
+  grid-template-columns: var(--sidebar-collapsed) minmax(0, 1fr);
+}
+
+.app-body {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+/* ---------- Sidebar ---------- */
+.sidebar {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--cim-blue);
+  color: #fff;
+  overflow: hidden;
+}
+
+.sidebar__brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  color: #fff;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  min-height: 72px;
+}
+
+.sidebar__brand:hover {
+  text-decoration: none;
+}
+
+.sidebar__logo {
+  flex-shrink: 0;
+  background: #fff;
+  border-radius: var(--radius);
+  padding: 4px 6px;
+}
+
+.sidebar__logo img {
+  height: 32px;
+  width: auto;
+}
+
+.sidebar__name {
+  font-size: 17px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.sidebar__nav {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px 12px 16px;
+}
+
+.sidebar__section {
+  margin: 16px 12px 6px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.6);
+  white-space: nowrap;
+}
+
+.sidebar__section:first-child {
+  margin-top: 4px;
+}
+
+.sidebar__link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: var(--radius);
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.sidebar__link svg {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.sidebar__link:hover {
+  background: var(--cim-blue-dark);
+  color: #fff;
+  text-decoration: none;
+}
+
+.sidebar__link.is-active {
+  background: var(--cim-blue-deep);
+  color: #fff;
+  font-weight: 600;
+}
+
+.sidebar__link.is-active::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 8px;
+  bottom: 8px;
+  width: 3px;
+  border-radius: 0 3px 3px 0;
+  background: var(--cim-yellow);
+}
+
+.sidebar__count {
+  margin-left: auto;
+  min-width: 22px;
+  padding: 1px 7px;
+  border-radius: 999px;
+  background: var(--cim-yellow);
+  color: var(--text);
+  font-size: 12px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.sidebar__footer {
+  padding: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+/* Collapsed (desktop): icons only */
+.app-shell.is-collapsed .sidebar__name,
+.app-shell.is-collapsed .sidebar__label,
+.app-shell.is-collapsed .sidebar__count {
+  display: none;
+}
+
+.app-shell.is-collapsed .sidebar__section {
+  height: 1px;
+  margin: 12px 8px;
+  overflow: hidden;
+  color: transparent;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.app-shell.is-collapsed .sidebar__brand {
+  justify-content: center;
+  padding: 16px 8px;
+}
+
+.app-shell.is-collapsed .sidebar__logo img {
+  height: 24px;
+}
+
+.app-shell.is-collapsed .sidebar__link {
+  justify-content: center;
+}
+
+.sidebar-backdrop {
+  display: none;
+}
+
+/* ---------- Topbar ---------- */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 64px;
+  padding: 0 24px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+
+.topbar__left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.topbar__toggle {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.topbar__toggle:hover {
+  color: var(--cim-blue);
+  border-color: var(--cim-blue);
+}
+
+.topbar__toggle svg {
+  width: 20px;
+  height: 20px;
+}
+
+.topbar__context {
+  font-size: 14px;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.topbar__context strong {
+  color: var(--text);
+}
+
+.user-menu {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+}
+
+.user-menu__info {
+  text-align: right;
+  line-height: 1.3;
+}
+
+.user-menu__name {
+  font-weight: 600;
+}
+
+.user-menu__role {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--cim-blue);
+  color: #fff;
+  display: grid;
+  place-items: center;
+  font-weight: 600;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+/* ---------- Main ---------- */
+.app-main {
+  flex: 1;
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 28px 24px 48px;
+}
+
+.page-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+
+.page-header h1 {
+  margin-bottom: 4px;
+}
+
+.page-header p {
+  margin: 0;
+  color: var(--text-muted);
+}
+
+.breadcrumb {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+
+/* ---------- Footer ---------- */
+.app-footer {
+  border-top: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.app-footer__inner {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 16px 24px;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* ---------- Auth shell (login, sign up, password) ---------- */
+.auth {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+}
+
+.auth__aside {
+  background: linear-gradient(160deg, var(--cim-blue) 0%, var(--cim-blue-deep) 100%);
+  color: #fff;
+  padding: 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.auth__aside h2 {
+  color: #fff;
+  font-size: 32px;
+  max-width: 420px;
+}
+
+.auth__aside p {
+  color: rgba(255, 255, 255, 0.85);
+  max-width: 420px;
+  font-size: 16px;
+}
+
+.auth__aside ul {
+  list-style: none;
+  padding: 0;
+  margin: 24px 0 0;
+  display: grid;
+  gap: 12px;
+}
+
+.auth__aside li {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.auth__aside li::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  margin-top: 8px;
+  border-radius: 50%;
+  background: var(--cim-yellow);
+  flex-shrink: 0;
+}
+
+.auth__logo {
+  align-self: flex-start;
+  background: #fff;
+  border-radius: var(--radius);
+  padding: 10px 16px;
+  display: inline-block;
+}
+
+.auth__logo img {
+  height: 56px;
+}
+
+.auth__main {
+  background: var(--surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 24px;
+}
+
+.auth__card {
+  width: 100%;
+  max-width: 400px;
+}
+
+.auth__card h1 {
+  margin-bottom: 6px;
+}
+
+.auth__card .lead {
+  color: var(--text-muted);
+  margin-bottom: 28px;
+}
+
+.auth__switch {
+  margin-top: 24px;
+  text-align: center;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.auth__mobile-logo {
+  display: none;
+  margin-bottom: 28px;
+}
+
+.auth__mobile-logo img {
+  height: 48px;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 900px) {
+  /* Sidebar becomes an off-canvas drawer */
+  .app-shell,
+  .app-shell.is-collapsed {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 272px;
+    max-width: 85vw;
+    z-index: 50;
+    transform: translateX(-100%);
+    transition: transform 0.2s ease;
+  }
+
+  .app-shell.is-open .sidebar {
+    transform: translateX(0);
+    box-shadow: 0 0 32px rgba(0, 0, 0, 0.25);
+  }
+
+  .app-shell.is-open .sidebar-backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 40;
+    background: rgba(9, 42, 84, 0.45);
+  }
+
+  /* The drawer always shows labels, even if collapsed on desktop */
+  .app-shell.is-collapsed .sidebar__name,
+  .app-shell.is-collapsed .sidebar__label {
+    display: inline;
+  }
+
+  .app-shell.is-collapsed .sidebar__count {
+    display: inline-block;
+  }
+
+  .app-shell.is-collapsed .sidebar__section {
+    height: auto;
+    margin: 16px 12px 6px;
+    color: rgba(255, 255, 255, 0.6);
+    background: none;
+  }
+
+  .app-shell.is-collapsed .sidebar__brand {
+    justify-content: flex-start;
+    padding: 16px;
+  }
+
+  .app-shell.is-collapsed .sidebar__logo img {
+    height: 32px;
+  }
+
+  .app-shell.is-collapsed .sidebar__link {
+    justify-content: flex-start;
+  }
+
+  .auth {
+    grid-template-columns: 1fr;
+  }
+
+  .auth__aside {
+    display: none;
+  }
+
+  .auth__mobile-logo {
+    display: block;
+  }
+
+  .user-menu__info {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .app-header__inner,
+  .topbar,
+  .app-main,
+  .app-footer__inner {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .brand img {
+    height: 38px;
+  }
+
+  .brand__name {
+    font-size: 15px;
+    padding-left: 10px;
+  }
+}

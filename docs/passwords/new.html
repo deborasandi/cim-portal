@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<!-- Rails: app/views/passwords/new.html.erb (layout: auth) -->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Reset password · CIM Portal</title>
+  <link rel="icon" href="../assets/images/cim-system-logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/stylesheets/base.css">
+  <link rel="stylesheet" href="../assets/stylesheets/layout.css">
+  <link rel="stylesheet" href="../assets/stylesheets/components.css">
+  <link rel="stylesheet" href="../assets/stylesheets/pages.css">
+</head>
+<body>
+  <div class="auth">
+    <aside class="auth__aside">
+      <div class="auth__logo">
+        <img src="../assets/images/cim-system-logo.png" alt="CIMsystem">
+      </div>
+      <div>
+        <h2>Forgot your password?</h2>
+        <p>We will email you a link to choose a new one. The link expires in 1 hour.</p>
+      </div>
+      <small style="color: rgba(255,255,255,.7)">© 2026 CIMsystem LLC</small>
+    </aside>
+
+    <main class="auth__main">
+      <div class="auth__card">
+        <div class="auth__mobile-logo">
+          <img src="../assets/images/cim-system-logo.png" alt="CIMsystem">
+        </div>
+
+        <h1>Reset password</h1>
+        <p class="lead">Enter the email you use to sign in.</p>
+
+        <!-- Rails: form_with url: passwords_path -->
+        <form action="edit.html" method="get">
+          <div class="field">
+            <label for="email" class="required">Email</label>
+            <input class="input" type="email" id="email" name="email" autocomplete="username" placeholder="you@company.com" required>
+          </div>
+
+          <button type="submit" class="btn btn--primary btn--block">Send reset link</button>
+        </form>
+
+        <p class="auth__switch">
+          <a href="../sessions/new.html">← Back to sign in</a>
+        </p>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

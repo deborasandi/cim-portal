@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<!-- Rails: app/views/admin/product_groups/show.html.erb (staff only) -->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Product group · CIM Portal</title>
+  <link rel="icon" href="../../assets/images/cim-system-logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/stylesheets/base.css">
+  <link rel="stylesheet" href="../../assets/stylesheets/layout.css">
+  <link rel="stylesheet" href="../../assets/stylesheets/components.css">
+  <link rel="stylesheet" href="../../assets/stylesheets/pages.css">
+</head>
+<body>
+  <div class="app-shell" data-controller="sidebar">
+    <!-- Rails: layouts/_sidebar.html.erb (items depend on current_user.role) -->
+    <aside class="sidebar" id="sidebar" aria-label="Main menu">
+      <a class="sidebar__brand" href="../customers/index.html" title="CIM Portal">
+        <span class="sidebar__logo"><img src="../../assets/images/cim-system-logo.png" alt="CIMsystem"></span>
+        <span class="sidebar__name">CIM Portal</span>
+      </a>
+      <nav class="sidebar__nav">
+          <div class="sidebar__section">Customers</div>
+          <a class="sidebar__link" href="../customers/index.html" title="Customers">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            <span class="sidebar__label">Customers</span>
+          </a>
+          <a class="sidebar__link is-active" href="../product_groups/index.html" title="Product groups" aria-current="page">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 2 10 5-10 5L2 7z"/><path d="m2 17 10 5 10-5"/><path d="m2 12 10 5 10-5"/></svg>
+            <span class="sidebar__label">Product groups</span>
+          </a>
+      </nav>
+      <div class="sidebar__footer">
+        <a class="sidebar__link" href="../../sessions/new.html" title="Sign out">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/></svg>
+          <span class="sidebar__label">Sign out</span>
+        </a>
+      </div>
+    </aside>
+    <div class="sidebar-backdrop" data-sidebar-target="backdrop"></div>
+
+    <div class="app-body">
+      <div class="prototype-bar">Prototype: data is fictional and nothing is saved. <a href="../../index.html">All screens</a></div>
+
+      <!-- Rails: layouts/_topbar.html.erb -->
+      <header class="topbar">
+        <div class="topbar__left">
+          <button type="button" class="topbar__toggle" data-sidebar-target="toggle" aria-controls="sidebar" aria-expanded="true" aria-label="Toggle menu">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18"/></svg>
+          </button>
+          <div class="topbar__context"><strong>CIMsystem</strong> · Internal <span class="qb-tag" style="margin-left: 8px">QuickBooks connected</span></div>
+        </div>
+        <div class="user-menu">
+          <div class="user-menu__info">
+            <div class="user-menu__name">Mark Ellis</div>
+            <div class="user-menu__role">Staff</div>
+          </div>
+          <span class="avatar" aria-hidden="true">ME</span>
+        </div>
+      </header>
+
+      <main class="app-main" data-controller="product-group">
+        <div class="page-header">
+          <div>
+            <div class="breadcrumb"><a href="index.html">Product groups</a> / <span data-group-name></span></div>
+            <h1 data-group-name></h1>
+            <p data-product-group-target="description"></p>
+          </div>
+          <div class="page-actions">
+            <button type="button" class="btn btn--secondary" data-product-group-target="edit">Edit</button>
+            <button type="button" class="btn btn--danger" data-product-group-target="delete">Delete group</button>
+          </div>
+        </div>
+
+        <div class="alert alert--info">
+          <p>Changes here apply to <strong>every customer in this group</strong>.</p>
+        </div>
+
+        <div class="group-layout">
+          <section class="card">
+            <div class="card__header">
+              <div>
+                <h2>Products <span class="badge badge--info" data-products-badge></span></h2>
+                <p>What customers in this group can order.</p>
+              </div>
+              <button type="button" class="btn btn--primary btn--sm" data-product-group-target="addProducts">+ Add products</button>
+            </div>
+            <div class="card__body card__body--flush">
+              <div class="table-wrap">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>SKU</th>
+                      <th>Product</th>
+                      <th class="num">Unit price</th>
+                      <th style="width: 60px"><span class="sr-only">Actions</span></th>
+                    </tr>
+                  </thead>
+                  <tbody data-product-group-target="products"></tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+
+          <section class="card">
+            <div class="card__header">
+              <div>
+                <h2>Customers <span class="badge badge--info" data-customers-badge></span></h2>
+                <p>Customers that have this group.</p>
+              </div>
+              <button type="button" class="btn btn--primary btn--sm" data-product-group-target="addCustomers">+ Add customers</button>
+            </div>
+            <div style="padding: 12px 20px; border-bottom: 1px solid var(--border)">
+              <label class="search">
+                <span class="sr-only">Search customers in this group</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+                <input class="input" type="search" placeholder="Search customers in this group" data-product-group-target="customerSearch">
+              </label>
+            </div>
+            <div class="card__body card__body--flush scroll-area">
+              <div class="table-wrap">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Customer</th>
+                      <th>QB #</th>
+                      <th style="width: 60px"><span class="sr-only">Actions</span></th>
+                    </tr>
+                  </thead>
+                  <tbody data-product-group-target="customers"></tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <!-- Rails: form_with model: [:admin, @product_group] -->
+        <dialog class="dialog" id="edit-group-dialog" aria-labelledby="edit-group-title">
+          <form method="dialog">
+            <div class="dialog__body">
+              <h2 id="edit-group-title">Edit group</h2>
+              <div class="field">
+                <label for="edit_group_name" class="required">Name</label>
+                <input class="input" id="edit_group_name" name="name" required>
+              </div>
+              <div class="field" style="margin-bottom: 0">
+                <label for="edit_group_description">Description</label>
+                <input class="input" id="edit_group_description" name="description">
+              </div>
+            </div>
+            <div class="dialog__actions">
+              <button type="button" class="btn btn--secondary" data-dialog-close>Cancel</button>
+              <button type="submit" class="btn btn--primary">Save</button>
+            </div>
+          </form>
+        </dialog>
+
+        <!-- Rails: button_to admin_product_group_path(@product_group), method: :delete -->
+        <dialog class="dialog" id="delete-group-dialog" aria-labelledby="delete-group-title">
+          <form method="dialog">
+            <div class="dialog__body">
+              <h2 id="delete-group-title">Delete this group?</h2>
+              <p><strong data-delete-count></strong> customers will lose access to the products of this group, unless those products were added to them individually or through another group.</p>
+            </div>
+            <div class="dialog__actions">
+              <button type="button" class="btn btn--secondary" data-dialog-close>Cancel</button>
+              <button type="submit" class="btn btn--danger-solid">Delete group</button>
+            </div>
+          </form>
+        </dialog>
+      </main>
+    
+      <footer class="app-footer">
+        <div class="app-footer__inner">
+          <span>© 2026 CIMsystem LLC · Internal</span>
+          <span>CIM Portal</span>
+        </div>
+      </footer>
+    </div>
+  </div>
+  <script src="../../assets/javascripts/data/mock_data.js"></script>
+  <script src="../../assets/javascripts/application.js"></script>
+  <script src="../../assets/javascripts/controllers/sidebar_controller.js"></script>
+  <script src="../../assets/javascripts/components/picker.js"></script>
+  <script src="../../assets/javascripts/controllers/product_group_controller.js"></script>
+</body>
+</html>

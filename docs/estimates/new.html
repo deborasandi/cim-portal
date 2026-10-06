@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<!-- Rails: app/views/estimates/new.html.erb (+ _form, _line_item partials) -->
+<!-- data-qb="..." marks the QuickBooks Online Estimate field each input maps to -->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>New order · CIM Portal</title>
+  <link rel="icon" href="../assets/images/cim-system-logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/stylesheets/base.css">
+  <link rel="stylesheet" href="../assets/stylesheets/layout.css">
+  <link rel="stylesheet" href="../assets/stylesheets/components.css">
+  <link rel="stylesheet" href="../assets/stylesheets/pages.css">
+</head>
+<body>
+  <div class="app-shell" data-controller="sidebar">
+    <!-- Rails: layouts/_sidebar.html.erb (items depend on current_user.role) -->
+    <aside class="sidebar" id="sidebar" aria-label="Main menu">
+      <a class="sidebar__brand" href="index.html" title="CIM Portal">
+        <span class="sidebar__logo"><img src="../assets/images/cim-system-logo.png" alt="CIMsystem"></span>
+        <span class="sidebar__name">CIM Portal</span>
+      </a>
+      <nav class="sidebar__nav">
+          <div class="sidebar__section">Orders</div>
+          <a class="sidebar__link is-active" href="../estimates/index.html" title="My orders" aria-current="page">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 17h6"/></svg>
+            <span class="sidebar__label">My orders</span>
+          </a>
+      </nav>
+      <div class="sidebar__footer">
+        <a class="sidebar__link" href="../sessions/new.html" title="Sign out">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/></svg>
+          <span class="sidebar__label">Sign out</span>
+        </a>
+      </div>
+    </aside>
+    <div class="sidebar-backdrop" data-sidebar-target="backdrop"></div>
+
+    <div class="app-body">
+      <div class="prototype-bar">Prototype: data is fictional and nothing is saved. <a href="../index.html">All screens</a></div>
+
+      <!-- Rails: layouts/_topbar.html.erb -->
+      <header class="topbar">
+        <div class="topbar__left">
+          <button type="button" class="topbar__toggle" data-sidebar-target="toggle" aria-controls="sidebar" aria-expanded="true" aria-label="Toggle menu">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18"/></svg>
+          </button>
+          <div class="topbar__context"><strong>Summit Dental Group</strong></div>
+        </div>
+        <div class="user-menu">
+          <div class="user-menu__info">
+            <div class="user-menu__name">Jane Cooper</div>
+            <div class="user-menu__role">Customer</div>
+          </div>
+          <span class="avatar" aria-hidden="true">JC</span>
+        </div>
+      </header>
+
+      <main class="app-main">
+        <div class="page-header">
+          <div>
+            <div class="breadcrumb"><a href="index.html">My orders</a> / New order</div>
+            <h1>New order</h1>
+            <p>Fill in your purchase order details. CIMsystem will review it and send you an estimate.</p>
+          </div>
+        </div>
+    
+        <!-- Rails: form_with model: @estimate, data: { controller: "estimate-form line-items" } -->
+        <form class="estimate-layout" data-controller="estimate-form line-items" novalidate>
+          <div>
+            <!-- Order details -->
+            <section class="card">
+              <div class="card__header">
+                <div>
+                  <h2>Order details</h2>
+                  <p>Information from your purchase order.</p>
+                </div>
+              </div>
+              <div class="card__body">
+                <div class="field-row">
+                  <div class="field">
+                    <label for="customer_name">Customer</label>
+                    <input class="input" id="customer_name" name="estimate[customer_name]" data-qb="CustomerRef" readonly>
+                  </div>
+                  <div class="field">
+                    <label for="sales_term">Payment terms</label>
+                    <input class="input" id="sales_term" name="estimate[sales_term]" data-qb="SalesTermRef" readonly>
+                  </div>
+                </div>
+    
+                <div class="field-row">
+                  <div class="field">
+                    <label for="po_number" class="required">PO number</label>
+                    <input class="input" id="po_number" name="estimate[po_number]" data-qb="CustomField: P.O. Number" placeholder="e.g. P78366" required>
+                  </div>
+                  <div class="field">
+                    <label for="po_revision">Revision</label>
+                    <input class="input" id="po_revision" name="estimate[po_revision]" type="number" min="0" value="0">
+                  </div>
+                  <div class="field">
+                    <label for="txn_date" class="required">Order date</label>
+                    <input class="input" id="txn_date" name="estimate[txn_date]" type="date" data-qb="TxnDate" required>
+                  </div>
+                </div>
+    
+                <div class="field-row">
+                  <div class="field">
+                    <label for="contact_name">Buyer / contact</label>
+                    <input class="input" id="contact_name" name="estimate[contact_name]" autocomplete="name" placeholder="Name of the person placing the order">
+                  </div>
+                  <div class="field">
+                    <label for="bill_email" class="required">Email for the estimate</label>
+                    <input class="input" id="bill_email" name="estimate[bill_email]" type="email" data-qb="BillEmail" required>
+                  </div>
+                </div>
+              </div>
+            </section>
+    
+            <!-- Shipping -->
+            <section class="card">
+              <div class="card__header">
+                <div>
+                  <h2>Ship to</h2>
+                  <p>Prefilled with the shipping address CIMsystem has on file. Change it if needed.</p>
+                </div>
+                <span class="qb-tag">From QuickBooks</span>
+              </div>
+              <div class="card__body">
+                <div class="field-row">
+                  <div class="field">
+                    <label for="ship_name" class="required">Company / lab name</label>
+                    <input class="input" id="ship_name" name="estimate[ship_addr][name]" data-qb="ShipAddr.Line1" placeholder="e.g. Utah Valley Dental Lab" required>
+                  </div>
+                  <div class="field">
+                    <label for="ship_attn">Attention</label>
+                    <input class="input" id="ship_attn" name="estimate[ship_addr][attn]" placeholder="Person receiving the order">
+                  </div>
+                </div>
+    
+                <div class="field">
+                  <label for="ship_line1" class="required">Address</label>
+                  <input class="input" id="ship_line1" name="estimate[ship_addr][line1]" data-qb="ShipAddr.Line2" autocomplete="street-address" required>
+                </div>
+    
+                <div class="field-row">
+                  <div class="field">
+                    <label for="ship_city" class="required">City</label>
+                    <input class="input" id="ship_city" name="estimate[ship_addr][city]" data-qb="ShipAddr.City" required>
+                  </div>
+                  <div class="field">
+                    <label for="ship_state" class="required">State</label>
+                    <input class="input" id="ship_state" name="estimate[ship_addr][state]" data-qb="ShipAddr.CountrySubDivisionCode" required>
+                  </div>
+                  <div class="field">
+                    <label for="ship_zip" class="required">ZIP code</label>
+                    <input class="input" id="ship_zip" name="estimate[ship_addr][postal_code]" data-qb="ShipAddr.PostalCode" required>
+                  </div>
+                </div>
+    
+                <div class="field-row">
+                  <div class="field">
+                    <label for="ship_country">Country</label>
+                    <input class="input" id="ship_country" name="estimate[ship_addr][country]" data-qb="ShipAddr.Country">
+                  </div>
+                  <div class="field">
+                    <label for="ship_phone">Phone</label>
+                    <input class="input" id="ship_phone" name="estimate[ship_addr][phone]" type="tel" placeholder="801-373-4750">
+                  </div>
+                  <div class="field">
+                    <label for="ship_email">Email</label>
+                    <input class="input" id="ship_email" name="estimate[ship_addr][email]" type="email">
+                  </div>
+                </div>
+    
+                <div class="field-row">
+                  <div class="field">
+                    <label for="ship_method" class="required">Ship via</label>
+                    <select class="select" id="ship_method" name="estimate[ship_method]" data-qb="ShipMethodRef" required>
+                      <option value="">Select…</option>
+                    </select>
+                  </div>
+                  <div class="field">
+                    <label for="carrier_account">Carrier account #</label>
+                    <input class="input" id="carrier_account" name="estimate[carrier_account]" placeholder="e.g. 314613740">
+                    <span class="hint">If we should ship on your carrier account.</span>
+                  </div>
+                  <div class="field">
+                    <label for="fob">FOB</label>
+                    <select class="select" id="fob" name="estimate[fob]">
+                      <option>Shipping point</option>
+                      <option>Destination</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </section>
+    
+            <!-- Line items -->
+            <section class="card">
+              <div class="card__header">
+                <div>
+                  <h2>Products</h2>
+                  <p>Only the products available to your account are listed.</p>
+                </div>
+                <span class="qb-tag">From QuickBooks</span>
+              </div>
+              <div class="card__body card__body--flush">
+                <div class="table-wrap">
+                  <table class="table line-items">
+                    <thead>
+                      <tr>
+                        <th class="col-n">#</th>
+                        <th class="col-product">Product</th>
+                        <th class="col-qty">Qty</th>
+                        <th class="col-price num">Unit price</th>
+                        <th class="col-date">Due date</th>
+                        <th class="col-amount num">Amount</th>
+                        <th class="col-remove"><span class="sr-only">Remove</span></th>
+                      </tr>
+                    </thead>
+                    <tbody data-line-items-target="body"></tbody>
+                  </table>
+                </div>
+    
+                <!-- Rails: render "line_item" partial inside a <template> for new rows -->
+                <template data-line-items-target="template">
+                  <tr>
+                    <td class="col-n" data-line-number>1</td>
+                    <td class="col-product">
+                      <select class="select" name="estimate[lines][NEW_INDEX][item_id]" data-qb="Line.SalesItemLineDetail.ItemRef" aria-label="Product" required></select>
+                      <div class="line-desc">
+                        <input class="input" name="estimate[lines][NEW_INDEX][description]" data-qb="Line.Description" placeholder="Description" aria-label="Description">
+                        <input class="input" name="estimate[lines][NEW_INDEX][customer_item_number]" placeholder="Your item #" aria-label="Your item number">
+                      </div>
+                    </td>
+                    <td class="col-qty">
+                      <input class="input" type="number" min="1" step="1" value="1" name="estimate[lines][NEW_INDEX][qty]" data-qb="Line.SalesItemLineDetail.Qty" aria-label="Quantity" required>
+                    </td>
+                    <td class="col-price">
+                      <input class="input num" name="estimate[lines][NEW_INDEX][unit_price]" data-qb="Line.SalesItemLineDetail.UnitPrice" aria-label="Unit price" readonly>
+                    </td>
+                    <td class="col-date">
+                      <input class="input" type="date" name="estimate[lines][NEW_INDEX][service_date]" data-qb="Line.SalesItemLineDetail.ServiceDate" aria-label="Due date">
+                    </td>
+                    <td class="col-amount num" data-line-amount>$0.00</td>
+                    <td class="col-remove">
+                      <button type="button" class="btn btn--ghost" data-action="line-items#remove" aria-label="Remove line">✕</button>
+                    </td>
+                  </tr>
+                </template>
+    
+                <div class="line-items__empty" data-line-items-target="empty" hidden>
+                  No products are available for your account yet. Please contact CIMsystem.
+                </div>
+    
+                <div class="line-items__footer">
+                  <button type="button" class="btn btn--secondary btn--sm" data-line-items-target="add">+ Add product</button>
+                </div>
+              </div>
+            </section>
+    
+            <!-- Purchase order PDF -->
+            <section class="card">
+              <div class="card__header">
+                <div>
+                  <h2>Purchase order PDF <span style="color: var(--danger)">*</span></h2>
+                  <p>Attach your signed purchase order. We use it to validate your order.</p>
+                </div>
+              </div>
+              <div class="card__body">
+                <!-- Rails: form.file_field :purchase_order_pdf, accept: "application/pdf" (Active Storage) -->
+                <div class="dropzone" data-controller="file-upload">
+                  <input type="file" name="estimate[purchase_order_pdf]" accept="application/pdf" aria-label="Purchase order PDF" data-qb="Attachable">
+                  <div class="dropzone__empty">
+                    <svg class="dropzone__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/>
+                      <path d="M14 3v5h5"/>
+                      <path d="M12 17v-6"/>
+                      <path d="m9.5 13.5 2.5-2.5 2.5 2.5"/>
+                    </svg>
+                    <div class="dropzone__title">Drop your PDF here or click to browse</div>
+                    <div class="text-small text-muted">PDF only, up to 10 MB</div>
+                  </div>
+                  <div class="dropzone__file">
+                    <span>✓</span>
+                    <span data-file-upload-target="name"></span>
+                  </div>
+                </div>
+              </div>
+            </section>
+    
+            <!-- Notes -->
+            <section class="card">
+              <div class="card__header">
+                <h2>Notes</h2>
+              </div>
+              <div class="card__body">
+                <div class="field" style="margin-bottom: 0">
+                  <label for="memo">Message to CIMsystem</label>
+                  <textarea class="textarea" id="memo" name="estimate[customer_memo]" data-qb="CustomerMemo" placeholder="Anything we should know about this order"></textarea>
+                </div>
+              </div>
+            </section>
+          </div>
+    
+          <!-- Summary -->
+          <aside class="estimate-summary">
+            <section class="card">
+              <div class="card__header">
+                <h2>Bill to</h2>
+                <span class="qb-tag">From QuickBooks</span>
+              </div>
+              <div class="card__body">
+                <p style="margin: 0" data-estimate-form-target="billAddr"></p>
+              </div>
+            </section>
+    
+            <section class="card">
+              <div class="card__header">
+                <h2>Summary</h2>
+              </div>
+              <div class="card__body">
+                <div class="summary-row">
+                  <span>Subtotal</span>
+                  <span data-line-items-target="subtotal">$0.00</span>
+                </div>
+                <div class="summary-row">
+                  <span>Tax</span>
+                  <span class="text-muted">Calculated by CIMsystem</span>
+                </div>
+                <div class="summary-row">
+                  <span>Shipping</span>
+                  <span class="text-muted">Calculated by CIMsystem</span>
+                </div>
+                <div class="summary-row summary-row--total">
+                  <span>Total (USD)</span>
+                  <span data-line-items-target="total">$0.00</span>
+                </div>
+    
+                <button type="submit" class="btn btn--primary btn--block" style="margin-top: 16px">Submit order</button>
+                <a href="index.html" class="btn btn--secondary btn--block" style="margin-top: 8px">Cancel</a>
+                <p class="text-small text-muted" style="margin: 12px 0 0">
+                  Your order is sent to CIMsystem as an estimate. You will receive it by email once reviewed.
+                </p>
+              </div>
+            </section>
+          </aside>
+        </form>
+      </main>
+    
+      <footer class="app-footer">
+        <div class="app-footer__inner">
+          <span>© 2026 CIMsystem LLC · 8912 Stone Green Way, Louisville, KY 40220</span>
+          <span>Questions? Contact your CIMsystem representative.</span>
+        </div>
+      </footer>
+    </div>
+  </div>
+
+  <script src="../assets/javascripts/data/mock_data.js"></script>
+  <script src="../assets/javascripts/application.js"></script>
+  <script src="../assets/javascripts/controllers/sidebar_controller.js"></script>
+  <script src="../assets/javascripts/controllers/estimate_form_controller.js"></script>
+  <script src="../assets/javascripts/controllers/line_items_controller.js"></script>
+  <script src="../assets/javascripts/controllers/file_upload_controller.js"></script>
+</body>
+</html>

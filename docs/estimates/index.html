@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<!-- Rails: app/views/estimates/index.html.erb (customer sees only their own estimates) -->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>My orders · CIM Portal</title>
+  <link rel="icon" href="../assets/images/cim-system-logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/stylesheets/base.css">
+  <link rel="stylesheet" href="../assets/stylesheets/layout.css">
+  <link rel="stylesheet" href="../assets/stylesheets/components.css">
+  <link rel="stylesheet" href="../assets/stylesheets/pages.css">
+</head>
+<body>
+  <div class="app-shell" data-controller="sidebar">
+    <!-- Rails: layouts/_sidebar.html.erb (items depend on current_user.role) -->
+    <aside class="sidebar" id="sidebar" aria-label="Main menu">
+      <a class="sidebar__brand" href="index.html" title="CIM Portal">
+        <span class="sidebar__logo"><img src="../assets/images/cim-system-logo.png" alt="CIMsystem"></span>
+        <span class="sidebar__name">CIM Portal</span>
+      </a>
+      <nav class="sidebar__nav">
+          <div class="sidebar__section">Orders</div>
+          <a class="sidebar__link is-active" href="../estimates/index.html" title="My orders" aria-current="page">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 17h6"/></svg>
+            <span class="sidebar__label">My orders</span>
+          </a>
+      </nav>
+      <div class="sidebar__footer">
+        <a class="sidebar__link" href="../sessions/new.html" title="Sign out">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/></svg>
+          <span class="sidebar__label">Sign out</span>
+        </a>
+      </div>
+    </aside>
+    <div class="sidebar-backdrop" data-sidebar-target="backdrop"></div>
+
+    <div class="app-body">
+      <div class="prototype-bar">Prototype: data is fictional and nothing is saved. <a href="../index.html">All screens</a></div>
+
+      <!-- Rails: layouts/_topbar.html.erb -->
+      <header class="topbar">
+        <div class="topbar__left">
+          <button type="button" class="topbar__toggle" data-sidebar-target="toggle" aria-controls="sidebar" aria-expanded="true" aria-label="Toggle menu">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18"/></svg>
+          </button>
+          <div class="topbar__context"><strong>Summit Dental Group</strong></div>
+        </div>
+        <div class="user-menu">
+          <div class="user-menu__info">
+            <div class="user-menu__name">Jane Cooper</div>
+            <div class="user-menu__role">Customer</div>
+          </div>
+          <span class="avatar" aria-hidden="true">JC</span>
+        </div>
+      </header>
+
+      <main class="app-main">
+        <!-- Rails: flash[:notice] -->
+        <div class="alert alert--success" data-controller="flash" hidden>
+          <p><strong>Order submitted.</strong> CIMsystem will review your purchase order and email you the estimate.</p>
+        </div>
+    
+        <div class="page-header">
+          <div>
+            <h1>My orders</h1>
+            <p>Orders placed by Summit Dental Group.</p>
+          </div>
+          <a href="new.html" class="btn btn--primary">+ New order</a>
+        </div>
+    
+        <section class="card">
+          <div class="card__body card__body--flush">
+            <div class="table-wrap">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>PO number</th>
+                    <th>Order date</th>
+                    <th>Estimate #</th>
+                    <th>Products</th>
+                    <th>Status</th>
+                    <th class="num">Total</th>
+                    <th>PO PDF</th>
+                    <th><span class="sr-only">Actions</span></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><a href="show.html?id=1042"><strong>P78366</strong></a></td>
+                    <td>Sep 3, 2026</td>
+                    <td class="mono">1042</td>
+                    <td>CS MB Roland Edition</td>
+                    <td><span class="badge badge--accepted">Approved</span></td>
+                    <td class="num">$4,000.00</td>
+                    <td><a href="../assets/samples/P78366.pdf" target="_blank" rel="noopener">P78366.pdf</a></td>
+                    <td class="text-right"><a class="btn btn--secondary btn--sm" href="show.html?id=1042">View</a></td>
+                  </tr>
+                  <tr>
+                    <td><a href="show.html?id=1057"><strong>P78412</strong></a></td>
+                    <td>Sep 18, 2026</td>
+                    <td class="mono">1057</td>
+                    <td>MILLBOX Maintenance 12 months, Remote training (4h)</td>
+                    <td><span class="badge badge--pending">Pending review</span></td>
+                    <td class="num">$1,430.00</td>
+                    <td><a href="../assets/samples/P78412.pdf" target="_blank" rel="noopener">P78412.pdf</a></td>
+                    <td class="text-right"><a class="btn btn--secondary btn--sm" href="show.html?id=1057">View</a></td>
+                  </tr>
+                  <tr>
+                    <td><a href="show.html?id=0988"><strong>P77950</strong></a></td>
+                    <td>Jul 22, 2026</td>
+                    <td class="mono">0988</td>
+                    <td>CS MB imes-icore Edition</td>
+                    <td><span class="badge badge--closed">Closed</span></td>
+                    <td class="num">$4,200.00</td>
+                    <td><a href="../assets/samples/P77950.pdf" target="_blank" rel="noopener">P77950.pdf</a></td>
+                    <td class="text-right"><a class="btn btn--secondary btn--sm" href="show.html?id=0988">View</a></td>
+                  </tr>
+                  <tr>
+                    <td><a href="show.html?id=0961"><strong>P77801</strong></a></td>
+                    <td>Jun 30, 2026</td>
+                    <td class="mono">0961</td>
+                    <td>Remote training (4h)</td>
+                    <td><span class="badge badge--rejected">Rejected</span></td>
+                    <td class="num">$480.00</td>
+                    <td><a href="../assets/samples/P77801.pdf" target="_blank" rel="noopener">P77801.pdf</a></td>
+                    <td class="text-right"><a class="btn btn--secondary btn--sm" href="show.html?id=0961">View</a></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+    
+        <p class="text-small text-muted">Status follows the estimate status in QuickBooks: Pending, Accepted, Closed or Rejected.</p>
+      </main>
+    
+      <footer class="app-footer">
+        <div class="app-footer__inner">
+          <span>© 2026 CIMsystem LLC · 8912 Stone Green Way, Louisville, KY 40220</span>
+          <span>Questions? Contact your CIMsystem representative.</span>
+        </div>
+      </footer>
+    </div>
+  </div>
+
+  <script src="../assets/javascripts/application.js"></script>
+  <script src="../assets/javascripts/controllers/sidebar_controller.js"></script>
+  <script src="../assets/javascripts/controllers/flash_controller.js"></script>
+</body>
+</html>
